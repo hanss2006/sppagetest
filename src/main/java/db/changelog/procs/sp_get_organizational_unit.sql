@@ -1,21 +1,19 @@
-CREATE OR REPLACE FUNCTION sp_get_organizational_unit(
-    page_number INTEGER = NULL,
-    page_size INTEGER = NULL
+CREATE OR REPLACE FUNCTION sp_get_organizational_unit (
+    Page_number INTEGER,
+    Page_size INTEGER
 )
-    RETURNS SETOF public.organizational_unit AS
+    RETURNS SETOF organizational_unit AS
 $BODY$
 DECLARE
-    PageOffset INTEGER :=0;
+    PageOffset INTEGER;
 BEGIN
-
-    PageOffset := page_number * page_size;
+    PageOffset := Page_number * Page_size;
 
     RETURN QUERY
         SELECT *
-        FROM public.organizational_unit
-        ORDER BY id
-        LIMIT page_size
-            OFFSET PageOffset;
+        FROM organizational_unit
+        ORDER BY id LIMIT Page_size OFFSET PageOffset;
+
 END;
 $BODY$
     LANGUAGE plpgsql;

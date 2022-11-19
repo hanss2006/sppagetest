@@ -11,11 +11,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @ToString
-@NamedStoredProcedureQuery(name = "sp_get_organizational_unit", procedureName = "sp_get_organizational_unit", resultClasses = {
-        OrganizationalUnit.class }, parameters = {
-        @StoredProcedureParameter(name = "page_number", mode = ParameterMode.IN, type = Integer.class),
-        @StoredProcedureParameter(name = "page_size", mode = ParameterMode.IN, type = Integer.class)
-})
+@NamedStoredProcedureQuery(
+        name = "sp_get_organizational_unit",
+        procedureName = "sp_get_organizational_unit",
+        resultClasses = { OrganizationalUnit.class },
+        parameters = {
+            @StoredProcedureParameter(name = "Page_number", mode = ParameterMode.IN, type = Integer.class),
+            @StoredProcedureParameter(name = "Page_size", mode = ParameterMode.IN, type = Integer.class)
+        }
+)
 public class OrganizationalUnit {
 
     /**

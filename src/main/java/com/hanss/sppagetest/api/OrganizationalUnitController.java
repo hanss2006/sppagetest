@@ -1,6 +1,8 @@
 package com.hanss.sppagetest.api;
 
 import com.hanss.sppagetest.model.OrganizationalUnit;
+import com.hanss.sppagetest.repositories.OrganizationalUnitRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -21,19 +23,26 @@ public class OrganizationalUnitController {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Autowired
+    private OrganizationalUnitRepository organizationalUnitRepository;
+
     @SuppressWarnings("unchecked")
     @GetMapping("/organizational_units")
-    public ResponseEntity<Page<OrganizationalUnit>> getOrganizationalUnits
-            (@PageableDefault(page = 0, size = 20)
-             @SortDefault.SortDefaults({
-                     @SortDefault(sort = "id", direction = Sort.Direction.ASC)
-             }) Pageable pageable) {
+    public ResponseEntity<Page<OrganizationalUnit>> getOrganizationalUnits(
+            @PageableDefault(page = 0, size = 20)
+            @SortDefault.SortDefaults({@SortDefault(sort = "id", direction = Sort.Direction.ASC)})
+            Pageable pageable
+    ) {
         List<OrganizationalUnit> organizationalUnits = entityManager
                 .createNamedStoredProcedureQuery("sp_get_organizational_unit")
-                .setParameter("page_number", pageable.getPageNumber())
-                .setParameter("page_size", pageable.getPageSize())
+                .setParameter("Page_number", pageable.getPageNumber())
+                .setParameter("Page_size", pageable.getPageSize())
                 .getResultList();
-        Page<OrganizationalUnit> pageOrgs = new PageImpl<>(organizationalUnits, pageable, 0L);
+        Page<OrganizationalUnit> pageOrgs = new PageImpl<>(
+                organizationalUnits,
+                pageable,
+                organizationalUnitRepository.count()
+        );
         return new ResponseEntity<>(pageOrgs, HttpStatus.OK);
     }
 }
