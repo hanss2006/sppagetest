@@ -8,7 +8,7 @@ DECLARE
     PageOffset INTEGER :=0;
 BEGIN
 
-    PageOffset := ((page_number-1) * page_size);
+    PageOffset := page_number * page_size;
 
     RETURN QUERY
         SELECT *
