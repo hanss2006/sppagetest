@@ -9,7 +9,7 @@
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 		http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd">
     <changeSet id="202211180944" author="Hanss">
-        <sqlFile path="../../../java/db/changelog/procs/sp_get_organizational_unit.sql"
+        <sqlFile path="../../../../procs/sp_get_organizational_unit.sql"
                  relativeToChangelogFile="true"/>
     </changeSet>
 </databaseChangeLog>
